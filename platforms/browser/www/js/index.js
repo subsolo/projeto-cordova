@@ -44,3 +44,27 @@ var app = {
 };
 
 app.initialize();
+
+
+$(document).ready(function() {
+  
+  var $password = $('#user-password');
+  var $showPass = $('#show-password');
+  
+  $showPass.on('click', function() {
+    $showPass.is(':checked') ? $password.prop('type', 'text') : $password.prop('type', 'password');
+  });
+  
+  // Validate
+  $('#user-login').validate({
+    rules: {
+      "user-email" : {
+        required: true,
+        email: true
+      },
+      "user-password" : {
+        required: true
+      }
+    }
+  });
+});
