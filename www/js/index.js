@@ -1,21 +1,5 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
+ 
 var app = {
     // Application Constructor
     initialize: function() {
@@ -68,3 +52,61 @@ $(document).ready(function() {
     }
   });
 });
+
+*/
+
+
+var banco;
+document.addEventListener('deviceready', successDeviceReady, false);
+
+
+function successDeviceReady(){
+   
+    banco = window.openDatabase("banco_bsi", "1.0", "banco_interno", 200000);
+    //window.openDatabase(database_name, database_version, database_displayname, database_size);
+
+    banco.transaction(function(ex){
+        ex.executeSql("CREATE TABLE IF NOT EXISTS usuario(id, nome)", [], success, error);
+    });
+
+    window.sessionStorage.setItem("nome", "turing"); 
+    window.sessionStorage.getItem("nome");
+    //window.sessionStorage.removeItem("key"); 
+    //window.sessionStorage.clear();
+
+    window.addEventListener("batterystatus", onBatteryStatus, false);
+
+    insertExemplo();
+    
+
+}
+
+function onBatteryStatus(status) {
+    console.log("Level: " + status.level + " isPlugged: " + status.isPlugged);
+}
+
+function insertExemplo(){
+    $("#bAcessar").click(function(){
+      banco.transaction(function(ex){
+        ex.executeSql("INSERT INTO usuario(id,nome) values (1, 'Bruno')", [], success, error);
+        selectExemplo();
+      });
+      return false;
+
+    });
+}
+
+function selectExemplo(){
+      banco.transaction(function(ex){
+        ex.executeSql("select * from usuario", [], success, error);
+      });
+      return false;
+}
+
+function success(ex, resultadoQuery){
+    console.log(resultadoQuery);
+}
+
+function error(erro){
+    console.log(erro);
+}
