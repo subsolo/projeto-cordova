@@ -6,3 +6,6 @@ Tecnologias a serem utilizadas
 #Php para conexao com o banco (Xampp)
 #Material Design Lite (Front)
 #Java (Back)
+
+#plugins
+Camera, bateria (org.apache plugins)
