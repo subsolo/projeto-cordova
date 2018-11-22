@@ -1,0 +1,4 @@
+#Thu Nov 22 00:30:49 BRST 2018
+base.0=C\:\\Users\\marines\\Desktop\\Prog_IV\\projeto-cordova\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex

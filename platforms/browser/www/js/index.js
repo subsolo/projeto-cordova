@@ -62,12 +62,13 @@ document.addEventListener('deviceready', successDeviceReady, false);
 
 function successDeviceReady(){
    
-    banco = window.openDatabase("banco_bsi", "1.0", "banco_interno", 200000);
-    //window.openDatabase(database_name, database_version, database_displayname, database_size);
+      banco = window.openDatabase("banco_bsi", "1.0", "banco_interno", 200000);
+      //window.openDatabase(database_name, database_version, database_displayname, database_size);
 
-    banco.transaction(function(ex){
-        ex.executeSql("CREATE TABLE IF NOT EXISTS usuario(id, nome)", [], success, error);
-    });
+      banco.transaction(function(ex){
+          ex.executeSql("CREATE TABLE IF NOT EXISTS usuario(id, nome, login, senha)", [], success, error);
+      });
+
 
     window.sessionStorage.setItem("nome", "turing"); 
     window.sessionStorage.getItem("nome");
@@ -76,32 +77,41 @@ function successDeviceReady(){
 
     window.addEventListener("batterystatus", onBatteryStatus, false);
 
-    insertExemplo();
+    $("#bCadastrar").click(function(){
+      banco.transaction(function(ex){
+        //ex.executeSql("INSERT INTO usuario(id,nome,login,senha) values (1, '"+nome+"','"+login+"','"+senha+"')", [], success, error);
+        ex.executeSql("INSERT INTO usuario(id,nome,login,senha) values (1, 'bruno','bruno','123')", [], success, error);
+      });
+      return false;
     
-
+    });
+    
+    function validaUsuario(ex, resultadoQuery){
+      for (var i = 0; i<resultadoQuery.length;i++){
+        if (resultadoQuery[i].login !== 'bruno'){
+            alert("Usuário não encontrado!")
+        } else if (resultadoQuery[i].senha !== '123'){
+          alert("Senha incorreta!")
+        }
+      }
+  }
 }
 
 function onBatteryStatus(status) {
     console.log("Level: " + status.level + " isPlugged: " + status.isPlugged);
 }
 
-function insertExemplo(){
-    $("#bAcessar").click(function(){
-      banco.transaction(function(ex){
-        ex.executeSql("INSERT INTO usuario(id,nome) values (1, 'Bruno')", [], success, error);
-        selectExemplo();
-      });
-      return false;
 
-    });
-}
 
-function selectExemplo(){
-      banco.transaction(function(ex){
-        ex.executeSql("select * from usuario", [], success, error);
-      });
-      return false;
-}
+/*function acessar() {
+  banco.transaction(function(ex){
+    ex.executeSql("select * from usuario where login ='bruno' and senha = '123' " , [], validaUsuario, error);
+  });
+  return false;
+
+};*/
+
+
 
 function success(ex, resultadoQuery){
     console.log(resultadoQuery);
