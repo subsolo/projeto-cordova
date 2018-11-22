@@ -9,7 +9,18 @@ Plugins
 - Camera
 - Bateria (org.apache plugins)
 
-# Subir projeto Local
+# Preparando ambiente
+```
+npm install -g cordova
+```
+
+# Clonando Repositório
+- Clone esse repositório 
+```
+https://github.com/subsolo/projeto-cordova/
+```
+
+# Subindo projeto Local
 ```
 cordova serve
 ```
