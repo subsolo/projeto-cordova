@@ -1,11 +1,15 @@
-projeto cordova
-
+# Projeto cordova
 
 Tecnologias a serem utilizadas
 
-#Php para conexao com o banco (Xampp)
-#Material Design Lite (Front)
-#Java (Back)
+- Php para conexao com o banco (Xampp) 
+- Material Design Lite (Front)
 
-#plugins
-Camera, bateria (org.apache plugins)
+Plugins
+- Camera
+- Bateria (org.apache plugins)
+
+# Subir projeto Local
+```
+cordova serve
+```
